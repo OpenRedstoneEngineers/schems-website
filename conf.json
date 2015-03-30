@@ -1,9 +1,10 @@
 {
-	"sql":
+	"db":
 	{
 		"host": "localhost",
 		"username": "root",
 		"password": "",
 		"database": ""
-	}
+	},
+	"schemsDir": ""
 }

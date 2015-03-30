@@ -1,4 +1,9 @@
-<form type="post" action="?a=login">
+<?php
+	if ($_SESSION['loggedin'])
+		redirect("browse");
+?>
+
+<form method="post" action="?a=login">
 <?php
 	template("map",
 	[
@@ -6,4 +11,5 @@
 		"Password"=>"<input type='password' id='password' name='password'>"
 	])
 ?>
+	<button>Log In</button>
 </form>
