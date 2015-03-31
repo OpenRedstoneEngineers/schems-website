@@ -20,8 +20,12 @@
 	$files = scandir($dir);
 ?>
 
+<form class='hidden' method='post' action='?a=upload'>
+	<input id='uploadFile' class='hidden' type='file' onclick='this.parentNode.submit()'></input>
+</form>
+
 <div class="menu">
-	<button>Upload</button>
+	<button onclick='document.getElementById("uploadFile").click()'>Upload</button>
 	<button onclick='location.href="?a=logout"'>Log Out</button>
 </div>
 
@@ -31,16 +35,38 @@
 	{
 		$urlfile = urlencode($file);
 		$urlpath = urlencode($path);
+
 		$dlurl = "?a=download&file=$urlfile&path=$urlpath";
+		$delurl = "?a=delete&file=$urlfile&path=$urlpath";
 
 		if ($file[0] !== ".")
 		{
 	?>
-		<a href='<?=$dlurl?>' class='file'>
-			<?=$file?>
+		<div class='file'>
+			<a href='<?=$dlurl?>' class='name'><?=$file?></a>
+			<a href='javascript:void(0)' data-delurl='<?$delurl?>' class='button-delete'>Delete</a>
 		</div>
 	<?php
 		}
 	}
 ?>
 </div>
+
+<script>
+	var files = document.querySelectorAll(".files .file");
+
+	for (var i in files)
+	{
+		var file = files[i];
+
+		var delButton = file.querySelector(".button-delete");
+		delButton.addEventListener("click", function()
+		{
+			lib.msgbox("Do you want to delete this file?", function()
+			{
+				var delurl = delButton.getAttribute("data-delurl");
+				location.href = delurl;
+			});
+		});
+	}
+</script>
