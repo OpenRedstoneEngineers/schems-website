@@ -21,6 +21,6 @@ if (!validateName($file))
 header("Content-Disposition: attachment; filename=\"$file\"");
 header("Content-Transfer-Encoding: bytes");
 
-$filepath = "$conf->schemsDir/$username/$path/$file";
+$filePath = "$conf->schemsDir/$username/$path/$file";
 
-echo file_get_contents($filepath);
+echo file_get_contents($filePath);

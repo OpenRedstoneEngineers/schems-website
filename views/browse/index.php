@@ -45,19 +45,35 @@
 <script>
 	var files = document.querySelectorAll(".files .file");
 
-	for (var i in files)
+	function addListeners(file)
 	{
-		var file = files[i];
-
 		var name = file.querySelector(".name").innerHTML;
-		var delButton = file.querySelector(".button-delete");
-		delButton.addEventListener("click", function()
+
+		file.querySelector(".button-delete").addEventListener("click", function(evt)
 		{
 			lib.msgbox("Do you want to delete the file '"+name+"'?", function()
 			{
-				var delurl = delButton.getAttribute("data-delurl");
-				location.href = delurl;
+				var deleteUrl = evt.srcElement.getAttribute("data-deleteUrl");
+				location.href = deleteUrl;
 			});
 		});
+
+		file.querySelector(".button-rename").addEventListener("click", function(evt)
+		{
+			var ext = name.match(/\.(prog|schematic)$/)[0];
+			var baseName = name.replace(/\.(prog|schematic)$/, "");
+			lib.msgbox("New Name:<br><input class='file-newname' type='text' value='"+baseName+"'>", function()
+			{
+				var newName = document.querySelector("#msgbox .file-newname").value;
+				var renameUrl = evt.srcElement.getAttribute("data-renameUrl");
+				location.href = renameUrl+encodeURIComponent(newName.trim()+ext);
+			});
+		});
+	}
+
+	for (var i in files)
+	{
+		if (files[i] instanceof Node)
+			addListeners(files[i]);
 	}
 </script>

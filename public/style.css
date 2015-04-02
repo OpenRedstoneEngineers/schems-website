@@ -95,7 +95,7 @@ html, body {
     margin-right: auto; }
     #content .files .file .name, #content .files .name:visited {
       color: #404040; }
-    #content .files .file .button-delete, #content .files .file .button-delete:visited {
+    #content .files .file .button-delete, #content .files .file .button-delete:visited, #content .files .file .button-rename, #content .files .file .button-rename:visited {
       color: #a81800; }
 
 #msgbox {
@@ -125,13 +125,24 @@ html, body {
     position: absolute;
     bottom: 12px;
     right: 12px; }
+  #msgbox input {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box; }
   #msgbox.active {
     transition: opacity 0.5s 0.1s, transform 0.5s;
     opacity: 1;
     transform: translateY(0px); }
 
 #error {
-  text-align: center; }
+  text-align: center;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 120px; }
 
 @media screen and (max-width: 600px) {
   #header .logo .title {

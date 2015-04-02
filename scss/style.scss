@@ -164,9 +164,12 @@ html, body
 			color: $col-text-foreground;
 		}
 
-		.file .button-delete, .file .button-delete:visited
+		.file .button-delete, .file .button-rename
 		{
-			color: $col-text-accent;
+			&, &:visited
+			{
+				color: $col-text-accent;
+			}
 		}
 	}
 }
@@ -203,6 +206,12 @@ html, body
 		right: 12px;
 	}
 
+	input
+	{
+		width: 100%;
+		@include prefix("box-sizing", "border-box");
+	}
+
 	&.active
 	{
 		transition: opacity 0.5s 0.1s, transform 0.5s;
@@ -215,6 +224,10 @@ html, body
 #error
 {
 	text-align: center;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 120px;
 }
 
 @media screen and (max-width: 600px)

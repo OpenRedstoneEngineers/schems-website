@@ -18,7 +18,7 @@ if (!validateName($path, '\/') || preg_match('/\.\./', $path))
 if (!validateName($file))
 	fail("File name contains illegal characters.");
 
-$filepath = "$conf->schemsDir/$username/$path/$file";
-unlink($filepath);
+$filePath = "$conf->schemsDir/$username/$path/$file";
+unlink($filePath);
 
 redirect();

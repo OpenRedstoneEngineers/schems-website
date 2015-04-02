@@ -2,21 +2,23 @@
 {
 	window.lib = {};
 
-	var elemMsgbox = document.getElementById("msgbox");
+	var msgboxElement = document.getElementById("msgbox");
+	var msgboxCallback;
 	lib.msgbox = function(message, cb)
 	{
-		elemMsgbox.querySelector(".content").innerHTML = message;
-		elemMsgbox.className = "active";
-
-		elemMsgbox.querySelector(".button-cancel").addEventListener("click", function()
-		{
-			elemMsgbox.className = "";
-		});
-
-		elemMsgbox.querySelector(".button-ok").addEventListener("click", function()
-		{
-			elemMsgbox.className = "";
-			if (cb) cb();
-		});
+		msgboxCallback = cb;
+		msgboxElement.querySelector(".content").innerHTML = message;
+		msgboxElement.className = "active";
 	}
+
+	msgboxElement.querySelector(".button-cancel").addEventListener("click", function()
+	{
+		msgboxElement.className = "";
+	});
+
+	msgboxElement.querySelector(".button-ok").addEventListener("click", function()
+	{
+		msgboxElement.className = "";
+		if (msgboxCallback) msgboxCallback();
+	});
 })();
