@@ -20,7 +20,18 @@
 		$dir = "$conf->schemsDir/$username/$path";
 	}
 
-	$files = scandir($dir);
+	if (file_exists($dir))
+		$files = scandir($dir);
+	else
+		$files = [];
+
+	$files = array_filter($files, function($file)
+	{
+		if ($file[0] === ".")
+			return false;
+		else
+			return true;
+	});
 ?>
 
 <form class='hidden' method='post' enctype='multipart/form-data' action='?a=upload'>

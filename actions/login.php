@@ -33,6 +33,11 @@ if ($hash === $user['password'])
 {
 	$_SESSION['loggedin'] = true;
 	$_SESSION['username'] = $username;
+
+	//Create the user's directory if it doesn't exist
+	if (!file_exists("$conf->schemsDir/$username"))
+		mkdir("$conf->schemsDir/$username");
+
 	redirect("browse");
 }
 else

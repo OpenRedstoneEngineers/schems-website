@@ -1,14 +1,13 @@
 <?php
-	foreach($args['files'] as $file)
+	if ($args['files'])
 	{
-		$urlfile = urlencode($file);
-		$urlpath = urlencode($args['path']);
-
-		$dlurl = "?a=download&file=$urlfile&path=$urlpath";
-		$delurl = "?a=delete&file=$urlfile&path=$urlpath";
-
-		if ($file[0] !== ".")
+		foreach($args['files'] as $file)
 		{
+			$urlfile = urlencode($file);
+			$urlpath = urlencode($args['path']);
+
+			$dlurl = "?a=download&file=$urlfile&path=$urlpath";
+			$delurl = "?a=delete&file=$urlfile&path=$urlpath";
 ?>
 	<div class='file'>
 		<a href='<?=$dlurl?>' class='name'><?=$file?></a>
@@ -16,5 +15,11 @@
 	</div>
 <?php
 		}
+	}
+	else
+	{
+?>
+	There is nothing here.
+<?php
 	}
 ?>
