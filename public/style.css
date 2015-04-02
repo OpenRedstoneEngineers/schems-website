@@ -1,19 +1,105 @@
-.hidden
-{
-	display: none;
-}
+html, body {
+  height: 100%;
+  margin: 0px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 16px; }
 
-#content
-{
-	position: relative;
-	z-index: 0;
-}
+* {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit; }
 
-#msgbox
-{
-	width: 70%;
-	height: 70%;
-	position: fixed;
-	background-color: #ccc;
-	z-index: 20;
-}
+.hidden {
+  display: none; }
+
+#header {
+  background: url(img/topimg.png) no-repeat scroll center top #FFF;
+  width: 100%; }
+  #header .logo {
+    width: 960px;
+    font-family: "Josefin Sans",sans-serif;
+    margin-left: auto;
+    margin-right: auto; }
+    #header .logo .acronym {
+      position: relative;
+      color: #a81800;
+      font-size: 72px;
+      display: inline-block;
+      margin-top: 30px; }
+    #header .logo .title {
+      position: relative;
+      font-size: 24px;
+      color: black;
+      display: inline-block;
+      bottom: 19px; }
+    #header .logo .menu {
+      float: right;
+      display: inline-block;
+      margin-top: 50px; }
+
+.navbutton, .navbutton:visited {
+  background: none;
+  border: none;
+  color: #a81800;
+  font-size: 20px;
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.5; }
+  .navbutton:hover, .navbutton:visited:hover {
+    color: #ffffff;
+    background-color: #a71700;
+    cursor: pointer; }
+
+#content {
+  position: relative;
+  z-index: 0;
+  margin-left: auto;
+  margin-right: auto; }
+  body.login #content {
+    width: 50%; }
+  body.browse #content {
+    width: 100%;
+    max-width: 960px; }
+  #content .textfield {
+    background-color: #ffffff;
+    line-height: 1.5;
+    padding: 1px;
+    border: 2px solid #a71700;
+    border-radius: 3px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box; }
+  #content .map .val {
+    margin-bottom: 24px; }
+  #content .files {
+    width: 70%;
+    max-height: 80%;
+    overflow-y: auto;
+    margin-left: auto;
+    margin-right: auto; }
+    #content .files .file .name, #content .files .name:visited {
+      color: #404040; }
+    #content .files .file .button-delete, #content .files .file .button-delete:visited {
+      color: #a81800; }
+
+#msgbox {
+  width: 70%;
+  height: 70%;
+  position: relative;
+  background-color: #ccc;
+  z-index: 20;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+/*# sourceMappingURL=style.css.map */

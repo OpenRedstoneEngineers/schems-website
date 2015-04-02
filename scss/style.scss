@@ -1,0 +1,166 @@
+$col-text-accent: #a81800;
+$col-text-foreground: #404040;
+$col-background-accent: #a71700;
+$col-background: #ffffff;
+
+$num-maxwidth: 960px;
+
+@mixin prefix($name, $value)
+{
+	@each $vendor in ("-webkit", "-moz", "-ms", "-o")
+	{
+		#{$vendor}-#{$name}: #{$value};
+	}
+	#{$name}: #{$value};
+}
+
+html, body
+{
+	height: 100%;
+	margin: 0px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+}
+
+*
+{
+	font-family: inherit;
+	font-weight: inherit;
+	font-size: inherit;
+}
+
+.hidden
+{
+	display: none;
+}
+
+#header
+{
+	background: url(img/topimg.png) no-repeat scroll center top #FFF;
+	width: 100%;
+
+	.logo
+	{
+		width: $num-maxwidth;
+		font-family: "Josefin Sans",sans-serif;
+
+		margin-left: auto;
+		margin-right: auto;
+
+		.acronym
+		{
+			position: relative;
+			color: $col-text-accent;
+			font-size: 72px;
+			display: inline-block;
+			margin-top: 30px;
+		}
+		.title
+		{
+			position: relative;
+			font-size: 24px;
+			color: black;
+			display: inline-block;
+			bottom: 19px;
+		}
+		.menu
+		{
+			float: right;
+			display: inline-block;
+			margin-top: 50px;
+		}
+	}
+}
+
+.navbutton, .navbutton:visited
+{
+	background: none;
+	border: none;
+
+	color: $col-text-accent;
+	font-size: 20px;
+	font-family: "Josefin Sans",sans-serif;
+	font-weight: 400;
+	text-transform: uppercase;
+	line-height: 1.5;
+
+	&:hover
+	{
+		color: $col-background;
+		background-color: $col-background-accent;
+		cursor: pointer;
+	}
+}
+
+#content
+{
+	position: relative;
+	z-index: 0;
+	margin-left: auto;
+	margin-right: auto;
+
+	body.login &
+	{
+		width: 50%;
+	}
+
+	body.browse &
+	{
+		width: 100%;
+		max-width: $num-maxwidth;
+	}
+
+	.textfield
+	{
+		background-color: $col-background;
+		line-height: 1.5;
+		padding: 1px;
+		border: 2px solid $col-background-accent;
+		border-radius: 3px;
+		width: 100%;
+		@include prefix("box-sizing", "border-box");
+	}
+
+	.map
+	{
+		.val
+		{
+			margin-bottom: 24px;
+		}
+	}
+
+	.files
+	{
+		width: 70%;
+		max-height: 80%;
+		overflow-y: auto;
+		margin-left: auto;
+		margin-right: auto;
+
+		.file .name, .name:visited
+		{
+			color: $col-text-foreground;
+		}
+
+		.file .button-delete, .file .button-delete:visited
+		{
+			color: $col-text-accent;
+		}
+	}
+}
+
+#msgbox
+{
+	width: 70%;
+	height: 70%;
+	position: relative;
+	background-color: #ccc;
+	z-index: 20;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	top: 50%;
+	@include prefix("transform", "translateY(-50%)");
+}

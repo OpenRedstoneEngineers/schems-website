@@ -1,4 +1,7 @@
 <?php
+	if (!$loggedin)
+		fail("Not logged in.");
+
 	if (empty($_GET['path']))
 	{
 		$path = "";
@@ -24,32 +27,8 @@
 	<input id='uploadFile' class='hidden' type='file' onclick='this.parentNode.submit()'></input>
 </form>
 
-<div class="menu">
-	<button onclick='document.getElementById("uploadFile").click()'>Upload</button>
-	<button onclick='location.href="?a=logout"'>Log Out</button>
-</div>
-
 <div class='files'>
-<?php
-	foreach($files as $file)
-	{
-		$urlfile = urlencode($file);
-		$urlpath = urlencode($path);
-
-		$dlurl = "?a=download&file=$urlfile&path=$urlpath";
-		$delurl = "?a=delete&file=$urlfile&path=$urlpath";
-
-		if ($file[0] !== ".")
-		{
-	?>
-		<div class='file'>
-			<a href='<?=$dlurl?>' class='name'><?=$file?></a>
-			<a href='javascript:void(0)' data-delurl='<?$delurl?>' class='button-delete'>Delete</a>
-		</div>
-	<?php
-		}
-	}
-?>
+	<?php template("fileList", ["files"=>$files, "path"=>$path]) ?>
 </div>
 
 <script>
