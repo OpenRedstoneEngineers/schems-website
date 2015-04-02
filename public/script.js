@@ -6,16 +6,16 @@
 	lib.msgbox = function(message, cb)
 	{
 		elemMsgbox.querySelector(".content").innerHTML = message;
-		elemMsgbox.className = "";
+		elemMsgbox.className = "active";
 
 		elemMsgbox.querySelector(".button-cancel").addEventListener("click", function()
 		{
-			elemMsgbox.className = "hidden";
+			elemMsgbox.className = "";
 		});
 
 		elemMsgbox.querySelector(".button-ok").addEventListener("click", function()
 		{
-			elemMsgbox.className = "hidden";
+			elemMsgbox.className = "";
 			if (cb) cb();
 		});
 	}

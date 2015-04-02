@@ -1,7 +1,11 @@
 $col-text-accent: #a81800;
 $col-text-foreground: #404040;
+$col-text-box: #eee;
+$col-text-button: #eee;
+
 $col-background-accent: #a71700;
 $col-background: #ffffff;
+$col-background-box: #1b1b1b;
 
 $num-maxwidth: 960px;
 
@@ -42,7 +46,8 @@ html, body
 
 	.logo
 	{
-		width: $num-maxwidth;
+		width: 100%;
+		max-width: $num-maxwidth;
 		font-family: "Josefin Sans",sans-serif;
 
 		margin-left: auto;
@@ -89,6 +94,22 @@ html, body
 	{
 		color: $col-background;
 		background-color: $col-background-accent;
+		cursor: pointer;
+	}
+}
+
+.smallbutton, .smallbutton:visited
+{
+	background: none;
+	border: none;
+
+	color: $col-text-button;
+	font-size: 18px;
+	font-family: "Josefin Sans",sans-serif;
+	font-weight: 400;
+
+	&:hover
+	{
 		cursor: pointer;
 	}
 }
@@ -152,15 +173,54 @@ html, body
 
 #msgbox
 {
-	width: 70%;
-	height: 70%;
-	position: relative;
-	background-color: #ccc;
+	transition: opacity 0.3s, transform 0.5s;
+
+	opacity: 0;
+	transform: translateY(-200%);
+
+	color: $col-text-box;
+	background-color: $col-background-box;
+
+	width: 30%;
+	height: 30%;
+	padding: 12px;
+	position: fixed;
 	z-index: 20;
 
-	margin-left: auto;
-	margin-right: auto;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
 
-	top: 50%;
-	@include prefix("transform", "translateY(-50%)");
+	.buttons
+	{
+		position: absolute;
+		bottom: 12px;
+		right: 12px;
+	}
+
+	&.active
+	{
+		transition: opacity 0.5s 0.1s, transform 0.5s;
+
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}
+
+@media screen and (max-width: 600px)
+{
+	#header .logo .title
+	{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 350px)
+{
+	#header .logo .acronym
+	{
+		display: none;
+	}
 }

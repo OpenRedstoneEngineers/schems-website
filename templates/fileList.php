@@ -12,7 +12,7 @@
 ?>
 	<div class='file'>
 		<a href='<?=$dlurl?>' class='name'><?=$file?></a>
-		<a href='<?=$delurl?>' class='button-delete'>Delete</a>
+		<a href='javascript:void(0)' data-delurl='<?=$delurl?>' class='button-delete'>Delete</a>
 	</div>
 <?php
 		}

@@ -17,7 +17,8 @@ html, body {
   background: url(img/topimg.png) no-repeat scroll center top #FFF;
   width: 100%; }
   #header .logo {
-    width: 960px;
+    width: 100%;
+    max-width: 960px;
     font-family: "Josefin Sans",sans-serif;
     margin-left: auto;
     margin-right: auto; }
@@ -50,6 +51,16 @@ html, body {
   .navbutton:hover, .navbutton:visited:hover {
     color: #ffffff;
     background-color: #a71700;
+    cursor: pointer; }
+
+.smallbutton, .smallbutton:visited {
+  background: none;
+  border: none;
+  color: #eee;
+  font-size: 18px;
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 400; }
+  .smallbutton:hover, .smallbutton:visited:hover {
     cursor: pointer; }
 
 #content {
@@ -88,18 +99,35 @@ html, body {
       color: #a81800; }
 
 #msgbox {
-  width: 70%;
-  height: 70%;
-  position: relative;
-  background-color: #ccc;
+  transition: opacity 0.3s, transform 0.5s;
+  opacity: 0;
+  transform: translateY(-200%);
+  color: #eee;
+  background-color: #1b1b1b;
+  width: 30%;
+  height: 30%;
+  padding: 12px;
+  position: fixed;
   z-index: 20;
-  margin-left: auto;
-  margin-right: auto;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%); }
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto; }
+  #msgbox .buttons {
+    position: absolute;
+    bottom: 12px;
+    right: 12px; }
+  #msgbox.active {
+    transition: opacity 0.5s 0.1s, transform 0.5s;
+    opacity: 1;
+    transform: translateY(0px); }
+
+@media screen and (max-width: 600px) {
+  #header .logo .title {
+    display: none; } }
+@media screen and (max-width: 350px) {
+  #header .logo .acronym {
+    display: none; } }
 
 /*# sourceMappingURL=style.css.map */
