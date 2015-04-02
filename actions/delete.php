@@ -18,9 +18,7 @@ if (!validateName($path, '\/') || preg_match('/\.\./', $path))
 if (!validateName($file))
 	fail("File name contains illegal characters.");
 
-header("Content-Disposition: attachment; filename=\"$file\"");
-header("Content-Transfer-Encoding: bytes");
-
 $filepath = "$conf->schemsDir/$username/$path/$file";
+unlink($filepath);
 
-echo file_get_contents($filepath);
+redirect();

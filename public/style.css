@@ -130,6 +130,9 @@ html, body {
     opacity: 1;
     transform: translateY(0px); }
 
+#error {
+  text-align: center; }
+
 @media screen and (max-width: 600px) {
   #header .logo .title {
     display: none; } }

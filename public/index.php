@@ -9,25 +9,6 @@ $root = "..";
 
 $conf = json_decode(file_get_contents("$root/conf.json"));
 
-function fail($msg, $page=false)
-{
-	$_SESSION['error'] = $msg;
-	if ($page)
-		$location = "?p=$page";
-	else if (empty($_SERVER['HTTP_REFERER']))
-		$location = "?p=login";
-	else
-		$location = $_SERVER['HTTP_REFERER'];
-
-	header("Location: $location");
-	die($msg);
-}
-
-function redirect($page)
-{
-	header("Location: ?p=$page");
-}
-
 if (empty($_SESSION['loggedin']) || !$_SESSION['loggedin'])
 	$loggedin = false;
 else
@@ -38,14 +19,63 @@ if ($loggedin)
 else
 	$username = "";
 
+//We don't want evil characters in our usernames, file names, etc.
+//However, we need to be able to customize which characters are allowed
+//in some cases, for example we need to allow a / in file paths.
+function validateName($name, $extraChars="")
+{
+	if (preg_match("/^[a-zA-Z0-9\._$extraChars]*$/", $name))
+		return true;
+	else
+		return false;
+}
+
+function fail($msg, $page=false)
+{
+	global $loggedin;
+
+	$_SESSION['error'] = $msg;
+
+	if ($page)
+		$location = "?p=$page";
+	else if ($loggedin)
+		$location = "?p=browse";
+	else
+		$location = "?p=login";
+
+	header("Location: $location");
+	die($msg);
+}
+
+function redirect($page=false)
+{
+	if ($page)
+		header("Location: ?p=$page");
+	else
+		header("Location: $_SERVER[HTTP_REFERER]");
+
+	die();
+}
+
 function template($name, $args=[])
 {
 	global $root;
 	global $loggedin;
+	global $username;
 	global $conf;
 	include "$root/templates/$name.php";
 }
 
+//We don't want evil usernames.
+if ($loggedin && !validateName($username))
+{
+	$_SESSION['username'] = "";
+	$_SESSION['loggedin'] = false;
+	fail("Your username contains illegal characters.", "login");
+}
+
+//Do an "action" (run a script which isn't supposed to produce HTML, but rather
+//redirect back to a page) if the 'a' GET parameter is supplied
 if (!empty($_GET['a']))
 {
 	$action = $_GET['a'];
@@ -57,19 +87,29 @@ if (!empty($_GET['a']))
 
 	include "$root/actions/$action.php";
 }
+
+//If no action is supplied, we want to show a page the user requests. If no
+//page URL parmeter ('p') is supplied, we intelligently pick which page to show.
 else
 {
 	if (empty($_GET['p']))
-		$page = "login";
+	{
+		if ($loggedin)
+			$page = "browse";
+		else
+			$page = "login";
+	}
 	else
+	{
 		$page = $_GET['p'];
+	}
 
-	if (!ctype_alnum($page))
+	if (!validateName($page))
 		die("Page name is invalid.");
 	if (!file_exists("$root/views/$page/index.php"))
 		die("Page $page doesn't exist.");
 
 	template("index", ["page"=>$page]);
-}
 
-$_SESSION['error'] = false;
+	$_SESSION['error'] = false;
+}

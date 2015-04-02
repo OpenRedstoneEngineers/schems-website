@@ -6,7 +6,7 @@
 	{
 		$path = "";
 
-		$dir = "$conf->schemsDir/$_SESSION[username]";
+		$dir = "$conf->schemsDir/$username";
 	}
 	else
 	{
@@ -17,14 +17,14 @@
 		if (preg_match("/\.\./", $path))
 			die("Illegal path.");
 
-		$dir = "$conf->schemsDir/$_SESSION[username]/$path";
+		$dir = "$conf->schemsDir/$username/$path";
 	}
 
 	$files = scandir($dir);
 ?>
 
-<form class='hidden' method='post' action='?a=upload'>
-	<input id='uploadFile' class='hidden' type='file' onclick='this.parentNode.submit()'></input>
+<form class='hidden' method='post' enctype='multipart/form-data' action='?a=upload'>
+	<input id='uploadFile' class='hidden' type='file' name='file' onchange='this.parentNode.submit()'></input>
 </form>
 
 <div class='files'>
