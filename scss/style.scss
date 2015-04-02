@@ -1,11 +1,11 @@
 $col-text-accent: #a81800;
 $col-text-foreground: #404040;
-$col-text-box: #eee;
-$col-text-button: #eee;
+$col-text-box: #404040;
+$col-text-button: #404040;
 
 $col-background-accent: #a71700;
 $col-background: #ffffff;
-$col-background-box: #1b1b1b;
+$col-background-box: #f0f0f0;
 
 $num-maxwidth: 960px;
 
@@ -180,9 +180,12 @@ html, body
 
 	color: $col-text-box;
 	background-color: $col-background-box;
+	@include prefix("box-shadow", "1px 1px 6px #333");
 
-	width: 30%;
-	height: 30%;
+	width: 50%;
+	height: 50%;
+	max-width: 240px;
+	max-height: 130px;
 	padding: 12px;
 	position: fixed;
 	z-index: 20;

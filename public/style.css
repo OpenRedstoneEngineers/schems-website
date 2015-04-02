@@ -56,7 +56,7 @@ html, body {
 .smallbutton, .smallbutton:visited {
   background: none;
   border: none;
-  color: #eee;
+  color: #404040;
   font-size: 18px;
   font-family: "Josefin Sans",sans-serif;
   font-weight: 400; }
@@ -102,10 +102,17 @@ html, body {
   transition: opacity 0.3s, transform 0.5s;
   opacity: 0;
   transform: translateY(-200%);
-  color: #eee;
-  background-color: #1b1b1b;
-  width: 30%;
-  height: 30%;
+  color: #404040;
+  background-color: #f0f0f0;
+  -webkit-box-shadow: 1px 1px 6px #333;
+  -moz-box-shadow: 1px 1px 6px #333;
+  -ms-box-shadow: 1px 1px 6px #333;
+  -o-box-shadow: 1px 1px 6px #333;
+  box-shadow: 1px 1px 6px #333;
+  width: 50%;
+  height: 50%;
+  max-width: 240px;
+  max-height: 130px;
   padding: 12px;
   position: fixed;
   z-index: 20;
