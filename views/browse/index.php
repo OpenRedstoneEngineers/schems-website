@@ -38,10 +38,11 @@
 	{
 		var file = files[i];
 
+		var name = file.querySelector(".name").innerHTML;
 		var delButton = file.querySelector(".button-delete");
 		delButton.addEventListener("click", function()
 		{
-			lib.msgbox("Do you want to delete this file?", function()
+			lib.msgbox("Do you want to delete the file '"+name+"'?", function()
 			{
 				var delurl = delButton.getAttribute("data-delurl");
 				location.href = delurl;
