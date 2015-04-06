@@ -9,13 +9,13 @@ $col-background-box: #f0f0f0;
 
 $num-maxwidth: 960px;
 
-@mixin prefix($name, $value)
+@mixin prefix($key, $val)
 {
 	@each $vendor in ("-webkit", "-moz", "-ms", "-o")
 	{
-		#{$vendor}-#{$name}: #{$value};
+		#{$vendor}-#{$key}: #{$val};
 	}
-	#{$name}: #{$value};
+	#{$key}: #{$val};
 }
 
 html, body
@@ -29,6 +29,7 @@ html, body
 
 *
 {
+	-webkit-appearance: none;
 	font-family: inherit;
 	font-weight: inherit;
 	font-size: inherit;
@@ -176,10 +177,10 @@ html, body
 
 #msgbox
 {
-	transition: opacity 0.3s, transform 0.5s;
+	@include prefix("transition", "opacity 0.3s, transform 0.5s");
 
 	opacity: 0;
-	transform: translateY(-200%);
+	@include prefix("transform", "translateY(-400%)");
 
 	color: $col-text-box;
 	background-color: $col-background-box;
@@ -214,10 +215,10 @@ html, body
 
 	&.active
 	{
-		transition: opacity 0.5s 0.1s, transform 0.5s;
+		@include prefix("transition", "opacity 0.5s 0.1s, transform 0.5s");
 
 		opacity: 1;
-		transform: translateY(0px);
+		@include prefix("transform", "translateY(0px)");
 	}
 }
 

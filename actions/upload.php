@@ -25,13 +25,9 @@ if (!validateName($file['name']))
 if (!validateName($path, '\/') || preg_match('/\.\./', $path))
 	fail("Path name contains illegal characters.");
 
-$uploadPath = "$conf->schemsDir/$username/$path/$file[name]";
+$uploadPath = "$conf->schemsDir/$uuid/$path/$file[name]";
 
 if (move_uploaded_file($file['tmp_name'], $uploadPath))
-{
 	redirect();
-}
 else
-{
-	fail("An unknown error occurred.");
-}
+	fail("Couldn't upload file.");

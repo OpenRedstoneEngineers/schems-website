@@ -18,7 +18,9 @@ if (!validateName($path, '\/') || preg_match('/\.\./', $path))
 if (!validateName($file))
 	fail("File name contains illegal characters.");
 
-$filePath = "$conf->schemsDir/$username/$path/$file";
-unlink($filePath);
+$filePath = "$conf->schemsDir/$uuid/$path/$file";
 
-redirect();
+if (unlink($filePath))
+	redirect();
+else
+	fail("Couldn't delete file.");

@@ -6,7 +6,7 @@
 	{
 		$path = "";
 
-		$dir = "$conf->schemsDir/$username";
+		$dir = "$conf->schemsDir/$uuid";
 	}
 	else
 	{
@@ -17,7 +17,7 @@
 		if (preg_match("/\.\./", $path))
 			die("Illegal path.");
 
-		$dir = "$conf->schemsDir/$username/$path";
+		$dir = "$conf->schemsDir/$uuid/$path";
 	}
 
 	if (file_exists($dir))

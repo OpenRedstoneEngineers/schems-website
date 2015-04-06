@@ -13,7 +13,7 @@
 	<div class='file'>
 		<a href='<?=$downloadUrl?>' class='name'><?=$file?></a>
 		<a href='javascript:void(0)' data-renameUrl='<?=$renameUrl?>' class='button-rename'>Rename</a>
-		<a href='javascript:void(0)' data-deleteUrl='<?=$delurl?>' class='button-delete'>Delete</a>
+		<a href='javascript:void(0)' data-deleteUrl='<?=$deleteUrl?>' class='button-delete'>Delete</a>
 	</div>
 <?php
 		}

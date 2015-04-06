@@ -33,6 +33,7 @@ if ($hash === $user['password'])
 {
 	$_SESSION['loggedin'] = true;
 	$_SESSION['username'] = $username;
+	$_SESSION['uuid'] = getUUID($username);
 
 	//Create the user's directory if it doesn't exist
 	if (!file_exists("$conf->schemsDir/$username"))

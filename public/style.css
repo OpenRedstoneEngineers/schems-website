@@ -6,6 +6,7 @@ html, body {
   font-size: 16px; }
 
 * {
+  -webkit-appearance: none;
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit; }
@@ -99,9 +100,17 @@ html, body {
       color: #a81800; }
 
 #msgbox {
+  -webkit-transition: opacity 0.3s, transform 0.5s;
+  -moz-transition: opacity 0.3s, transform 0.5s;
+  -ms-transition: opacity 0.3s, transform 0.5s;
+  -o-transition: opacity 0.3s, transform 0.5s;
   transition: opacity 0.3s, transform 0.5s;
   opacity: 0;
-  transform: translateY(-200%);
+  -webkit-transform: translateY(-400%);
+  -moz-transform: translateY(-400%);
+  -ms-transform: translateY(-400%);
+  -o-transform: translateY(-400%);
+  transform: translateY(-400%);
   color: #404040;
   background-color: #f0f0f0;
   -webkit-box-shadow: 1px 1px 6px #333;
@@ -133,8 +142,16 @@ html, body {
     -o-box-sizing: border-box;
     box-sizing: border-box; }
   #msgbox.active {
+    -webkit-transition: opacity 0.5s 0.1s, transform 0.5s;
+    -moz-transition: opacity 0.5s 0.1s, transform 0.5s;
+    -ms-transition: opacity 0.5s 0.1s, transform 0.5s;
+    -o-transition: opacity 0.5s 0.1s, transform 0.5s;
     transition: opacity 0.5s 0.1s, transform 0.5s;
     opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
     transform: translateY(0px); }
 
 #error {

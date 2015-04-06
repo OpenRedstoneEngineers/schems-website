@@ -1,11 +1,11 @@
 <?php
 
 error_reporting(E_ALL);
-ini_set("display_errors", "On");
-
-session_start();
+ini_set("display_errors", "Off");
 
 $root = "..";
+
+session_start();
 
 $conf = json_decode(file_get_contents("$root/conf.json"));
 
@@ -15,9 +15,19 @@ else
 	$loggedin = true;
 
 if ($loggedin)
+{
 	$username = $_SESSION['username'];
+	$uuid = $_SESSION['uuid'];
+	if ($username == "" || $uuid == "")
+	{
+		$loggedin = false;
+	}
+}
 else
+{
 	$username = "";
+	$uuid = "";
+}
 
 //We don't want evil characters in our usernames, file names, etc.
 //However, we need to be able to customize which characters are allowed
@@ -62,8 +72,25 @@ function template($name, $args=[])
 	global $root;
 	global $loggedin;
 	global $username;
+	global $uuid;
 	global $conf;
 	include "$root/templates/$name.php";
+}
+
+function getUUID($name)
+{
+	$options =
+	[
+		"http"=>
+		[
+			"header"=>"Content-Type: application/json",
+			"method"=>"POST",
+			"content"=>json_encode([$name])
+		]
+	];
+	$context = stream_context_create($options);
+	$result = file_get_contents("https://api.mojang.com/profiles/minecraft", false, $context);
+	return json_decode($result)[0]->id;
 }
 
 //We don't want evil usernames.

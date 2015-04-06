@@ -24,14 +24,16 @@ if (!validateName($file))
 	fail("File name contains illegal characters.");
 if (!validateName($newName))
 	fail("New name contains illegal characters.");
-if (end(explode(".", $file)) !== end(explode(".", $newName)))
+if (pathinfo($file, PATHINFO_EXTENSION) !== pathinfo($file, PATHINFO_EXTENSION))
 	fail("You can't change the file extension.");
 
-$basePath = "$conf->schemsDir/$username/$path";
+$basePath = "$conf->schemsDir/$uuid/$path";
+
+//die("Renaming $basePath/$file to $basePath/$newName.");
 
 if (file_exists("$basePath/$newName"))
 	fail("File '$newName' already exists.");
-
-rename("$basePath/$file", "$basePath/$newName");
-
-redirect();
+if (rename("$basePath/$file", "$basePath/$newName"))
+	redirect();
+else
+	fail("Couldn't rename file.");
