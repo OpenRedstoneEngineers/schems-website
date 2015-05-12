@@ -3,6 +3,8 @@
 error_reporting(E_ALL);
 ini_set("display_errors", "Off");
 
+ob_start();
+
 $root = "..";
 
 session_start();
@@ -16,8 +18,8 @@ else
 
 if ($loggedin)
 {
-	$username = $_SESSION['username'];
-	$uuid = $_SESSION['uuid'];
+	$username = $_COOKIE['username'];
+	$uuid = $_COOKIE['uuid'];
 	if ($username == "" || $uuid == "")
 	{
 		$loggedin = false;
@@ -80,8 +82,9 @@ function template($name, $args=[])
 //We don't want evil usernames.
 if ($loggedin && !validateName($username))
 {
-	$_SESSION['username'] = "";
 	$_SESSION['loggedin'] = false;
+	setcookie("accesstoken", "");
+	setcookie("clienttoken", "");
 	fail("Your username contains illegal characters.", "login");
 }
 
@@ -124,3 +127,5 @@ else
 
 	$_SESSION['error'] = false;
 }
+
+ob_end_flush();

@@ -3,8 +3,31 @@
 if (empty($_POST['username']) || empty($_POST['password']))
 	fail("You need to submit a username and password.");
 
+function randomString($length)
+{
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";	
+
+	$str = "";
+	$size = strlen($chars);
+	for($i = 0; $i < $length; ++$i) {
+		$str .= $chars[rand(0, $size - 1)];
+	}
+
+	return $str;
+}
+
 $username = $_POST['username'];
 $password = $_POST['password'];
+
+if (isset($_COOKIE['clienttoken']))
+{
+	$clientToken = $_COOKIE['clienttoken'];
+}
+else
+{
+	$clientToken = randomString(32);
+	setcookie("clienttoken", $clientToken);
+}
 
 $content = json_encode([
 	"agent"=>
@@ -14,7 +37,7 @@ $content = json_encode([
 	],
 	"username"=>addslashes($username),
 	"password"=>addslashes($password),
-	"clientToken"=>($_SESSION['clienttoken'] ? $_SESSION['clienttoken'] : "")
+	"clientToken"=>$clientToken
 ]);
 
 $options =
@@ -49,10 +72,12 @@ else
 {
 	$uuid = $result->selectedProfile->id;
 
+	setcookie("accesstoken", $result->accessToken);
+	setcookie("clienttoken", $result->clientToken);
+	setcookie("username", $result->selectedProfile->name);
+	setcookie("uuid", $uuid);
+
 	$_SESSION['loggedin'] = true;
-	$_SESSION['username'] = $result->selectedProfile->name;
-	$_SESSION['clienttoken'] = $result->clientToken;
-	$_SESSION['uuid'] = $uuid;
 
 	//Create the user's directory if it doesn't exist
 	if (!file_exists("$conf->schemsDir/$uuid"))

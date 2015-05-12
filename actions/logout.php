@@ -1,7 +1,8 @@
 <?php
 
 $_SESSION['loggedin'] = false;
-$_SESSION['username'] = "";
-$_SESSION['uuid'] = "";
-
+setcookie("username", "");
+setcookie("uuid", "");
+setcookie("accesstoken", "");
+setcookie("clienttoken", "");
 redirect("login");

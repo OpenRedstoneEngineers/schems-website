@@ -18,7 +18,7 @@ $file['ext'] = strtolower(end(explode(".", $file['name'])));
 
 if (!in_array($file['ext'], $allowedExtensions))
 	fail("Extension $file[ext] is not allowed.");
-if ($file[size] > $conf->maxFileSize)
+if ($file['size'] > $conf->maxFileSize)
 	fail("File too big.");
 if (!validateName($file['name']))
 	fail("File name contains illegal characters.");
