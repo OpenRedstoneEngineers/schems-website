@@ -7,9 +7,9 @@
 	<?php
 		template("map",
 		[
-			"Username"=>"<input class='textfield' type='text' id='username' name='username'>",
-			"Password"=>"<input class='textfield' type='password' id='password' name='password'>"
-		])
+			"Minecraft Username"=>"<input class='textfield' type='text' id='username' name='username'>",
+			"Minecraft Password"=>"<input class='textfield' type='password' id='password' name='password'>"
+		]);
 	?>
 	<button class='navbutton'>Log In</button>
 </form>

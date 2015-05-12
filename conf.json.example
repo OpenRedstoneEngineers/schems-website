@@ -1,11 +1,4 @@
 {
-	"db":
-	{
-		"host": "localhost",
-		"username": "root",
-		"password": "",
-		"database": ""
-	},
 	"schemsDir": "files",
 	"maxSize": 524288
 }

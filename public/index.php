@@ -77,22 +77,6 @@ function template($name, $args=[])
 	include "$root/templates/$name.php";
 }
 
-function getUUID($name)
-{
-	$options =
-	[
-		"http"=>
-		[
-			"header"=>"Content-Type: application/json",
-			"method"=>"POST",
-			"content"=>json_encode([$name])
-		]
-	];
-	$context = stream_context_create($options);
-	$result = file_get_contents("https://api.mojang.com/profiles/minecraft", false, $context);
-	return json_decode($result)[0]->id;
-}
-
 //We don't want evil usernames.
 if ($loggedin && !validateName($username))
 {

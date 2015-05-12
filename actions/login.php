@@ -6,42 +6,57 @@ if (empty($_POST['username']) || empty($_POST['password']))
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$db = new Mysqli(
-	$conf->db->host,
-	$conf->db->username,
-	$conf->db->password,
-	$conf->db->database
-);
+$content = json_encode([
+	"agent"=>
+	[
+		"name"=>"Minecraft",
+		"version"=>1
+	],
+	"username"=>addslashes($username),
+	"password"=>addslashes($password),
+	"clientToken"=>($_SESSION['clienttoken'] ? $_SESSION['clienttoken'] : "")
+]);
 
-if ($db->connect_error)
-	fail($db->connect_error);
+$options =
+[
+	"http"=>
+	[
+		"header"=>"Content-Type: application/json",
+		"method"=>"POST",
+		"content"=>$content
+	]
+];
 
-//We don't want SQL injection.
-$username = $db->real_escape_string($username);
+$context = stream_context_create($options);
 
-$res = $db->query("SELECT * FROM users WHERE username='$username'");
+//We silence errors here because PHP displays errors, not catchable with a try/tach,
+//if the server responds with a 403 Forbidden, and mojang's API does that
+//when the username and password doesn't match.
+@$result = file_get_contents("https://authserver.mojang.com/authenticate", false, $context);
 
-$db->close();
-
-if (empty($res))
-	fail("User $username doesn't exist.");
-
-$user = $res->fetch_assoc();
-$hash = MD5($user['salt'] . $_POST['password']);
-
-if ($hash === $user['password'])
+if (!$result)
 {
-	$_SESSION['loggedin'] = true;
-	$_SESSION['username'] = $username;
-	$_SESSION['uuid'] = getUUID($username);
+	fail("Incorrect username or password.");
+}
 
-	//Create the user's directory if it doesn't exist
-	if (!file_exists("$conf->schemsDir/$username"))
-		mkdir("$conf->schemsDir/$username");
+$result = json_decode($result);
 
-	redirect("browse");
+if (!empty($result->error))
+{
+	fail($result->errorMessage, "login");
 }
 else
 {
-	fail("Wrong username or password.");
+	$uuid = $result->selectedProfile->id;
+
+	$_SESSION['loggedin'] = true;
+	$_SESSION['username'] = $result->selectedProfile->name;
+	$_SESSION['clienttoken'] = $result->clientToken;
+	$_SESSION['uuid'] = $uuid;
+
+	//Create the user's directory if it doesn't exist
+	if (!file_exists("$conf->schemsDir/$uuid"))
+		mkdir("$conf->schemsDir/$uuid");
+
+	redirect("browse");
 }
